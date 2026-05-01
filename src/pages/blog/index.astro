@@ -1,0 +1,141 @@
+---
+import Header from "@components/Header.astro";
+import Sidebar from "@components/Sidebar.astro";
+import BlogHeader from "./BlogHeader.astro";
+import PostCard from "./PostCard.astro";
+import PostViewer from "./PostViewer.astro";
+import BlogSearch from "@components/BlogSearch.astro";
+import '@styles/styles.css'
+
+// Get blog posts from public/blog directory
+const blogPosts = await Astro.glob('@blog/*.md');
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="Blog | Renzo Machado" />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem="blog" />
+      <nav class="main">
+        <div class="container">
+          <main class="blog-container">
+
+            <BlogHeader />
+            <BlogSearch placeholder="Search by title, date or content..." />
+
+            <div class="blog-posts-list" id="blogPostsList">
+              <div class="posts-grid">
+                {
+                  blogPosts.map(post => (
+                    <PostCard post={post} />
+                  ))
+                }
+              </div>
+            </div>
+
+            <PostViewer />
+
+          </main>
+        </div>
+      </nav>
+    </div>
+
+<script>
+  import { marked } from 'marked';
+  import Prism from 'prismjs';
+  import 'prismjs/components/prism-javascript';
+  import 'prismjs/components/prism-python';
+  import 'prismjs/components/prism-css';
+  import 'prismjs/components/prism-json';
+  import 'prismjs/themes/prism.css';
+
+  marked.setOptions({
+    highlight: function(code, lang) {
+      if (Prism.languages[lang]) {
+        return Prism.highlight(code, Prism.languages[lang], lang);
+      }
+      return Prism.highlight(code, Prism.languages.plaintext, 'plaintext');
+    },
+    breaks: true,
+    gfm: true
+  });
+
+  function setupBlog() {
+    const blogPostsList = document.getElementById('blogPostsList');
+    const blogContent = document.getElementById('blogContent');
+    const markdownContent = document.getElementById('markdownContent');
+    const backBtn = document.getElementById('backBtn');
+    const blogContainer = document.querySelector('.blog-container');
+
+    if (!blogPostsList || !blogContent) return;
+
+    // --- LÓGICA DE RESET ---
+    const resetView = () => {
+      blogContent.style.display = 'none';
+      blogPostsList.style.display = 'block';
+    };
+
+    // 1. Resetear siempre al cargar la página o volver a ella
+    resetView();
+
+    // 2. Intersection Observer: Detecta si el blog sale de la vista
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Si el contenedor del blog ya no es visible, reseteamos la vista interna
+        if (!entry.isIntersecting) {
+          resetView();
+        }
+      });
+    }, { threshold: 0 });
+
+    if (blogContainer) observer.observe(blogContainer);
+
+    // --- CARGA DE POSTS ---
+    window.loadPost = async function(slug) {
+      if (!slug) return;
+      try {
+        const response = await fetch(`/blog/${slug}.md`);
+        if (!response.ok) throw new Error('No encontrado');
+
+        const rawMarkdown = await response.text();
+        const cleanMarkdown = rawMarkdown.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
+        
+        markdownContent.innerHTML = marked.parse(cleanMarkdown);
+        Prism.highlightAll();
+
+        blogPostsList.style.display = 'none';
+        blogContent.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    // Eventos de botones
+    backBtn?.addEventListener('click', resetView);
+    
+    document.getElementById('homeBtn')?.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+  }
+
+  // Ejecutar en carga inicial
+  setupBlog();
+
+  // EJECUTAR CADA VEZ QUE NAVEGAS (Vital para Astro)
+  document.addEventListener('astro:after-swap', setupBlog);
+  document.addEventListener('astro:page-load', setupBlog);
+
+  // Tecla Escape
+  document.addEventListener('keydown', (e) => {
+    const blogContent = document.getElementById('blogContent');
+    if (e.key === 'Escape' && blogContent?.style.display === 'block') {
+      document.getElementById('backBtn')?.click();
+    }
+  });
+</script>
+
+    <link rel="stylesheet" href="https://ashgreen1.dev/assets/style-blog.css">
+  </body>
+</html>

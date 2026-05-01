@@ -1,0 +1,30 @@
+---
+export interface Props {
+  href: string;
+  imgSrc: string;
+  imgClass?: string;
+  title: string;
+  technologies: string[];
+}
+
+const { href, imgSrc, imgClass = "", title, technologies } = Astro.props;
+---
+
+<a href={href} class="projects-container">
+  <div class="single-projects-category">
+    <div class={`projects-category-image-container ${imgClass}`.trim()}>
+      <img src={imgSrc} loading="lazy" alt="" class="projects-category-image" />
+    </div>
+  </div>
+  <div class="single-projects-content">
+    <h4>{title}</h4>
+    <div class="tech-tools-container">
+      <div class="mini-label-white gray-color">Technologies &amp; tools</div>
+      <div class="chips-container chips-container-small-width">
+        {technologies.map((tech) => (
+          <div class="single-chip small-chip">{tech}</div>
+        ))}
+      </div>
+    </div>
+  </div>
+</a>

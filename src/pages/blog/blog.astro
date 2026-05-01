@@ -1,0 +1,114 @@
+---
+import Header from "@components/Header.astro";
+import Sidebar from "@components/Sidebar.astro";
+import BlogHeader from "@pages/blog/BlogHeader.astro";
+import PostCard from "@pages/blog/PostCard.astro";
+import PostViewer from "@pages/blog/PostViewer.astro";
+import '@styles/styles.css'
+
+// Get blog posts from public/blog directory
+const blogPosts = await Astro.glob('@blog/*.md');
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="Blog | Renzo Machado" />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem="blog" />
+      <nav class="main">
+        <div class="container">
+          <main class="blog-container">
+            
+            <BlogHeader />
+            
+            <div class="blog-posts-list" id="blogPostsList">
+              <div class="posts-grid">
+                {
+                  blogPosts.map(post => (
+                    <PostCard post={post} />
+                  ))
+                }
+              </div>
+            </div>
+
+            <PostViewer />
+
+          </main>
+        </div>
+      </nav>
+    </div>
+
+    <script>
+      import { marked } from 'marked';
+      import hljs from 'highlight.js';
+      
+      marked.setOptions({
+        highlight: function(code, lang) {
+          if (lang && hljs.getLanguage(lang)) {
+            return hljs.highlight(code, { language: lang }).value;
+          }
+          return hljs.highlightAuto(code).value;
+        },
+        breaks: true,
+        gfm: true
+      });
+
+      const blogPostsList = document.getElementById('blogPostsList');
+      const blogContent = document.getElementById('blogContent');
+      const markdownContent = document.getElementById('markdownContent');
+      const backBtn = document.getElementById('backBtn');
+      const homeBtn = document.getElementById('homeBtn');
+
+      window.loadPost = async function(slug) {
+        if (!slug) return;
+
+        try {
+          const response = await fetch(`/blog/${slug}.md`);
+          
+          if (!response.ok) {
+            throw new Error('No se pudo encontrar el artículo');
+          }
+
+          const rawMarkdown = await response.text();
+          
+          const cleanMarkdown = rawMarkdown.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
+          
+          const html = marked.parse(cleanMarkdown);
+          markdownContent.innerHTML = html;
+          
+          markdownContent.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightElement(block);
+          });
+          
+          blogPostsList.style.display = 'none';
+          blogContent.style.display = 'block';
+          
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          
+        } catch (error) {
+          console.error('Error loading post:', error);
+          markdownContent.innerHTML = '<p>Error al cargar el artículo. Por favor, inténtalo de nuevo.</p>';
+        }
+      };
+
+      backBtn.addEventListener('click', () => {
+        blogContent.style.display = 'none';
+        blogPostsList.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      homeBtn.addEventListener('click', () => {
+        window.location.href = '/';
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && blogContent.style.display === 'block') {
+          backBtn.click();
+        }
+      });
+    </script>
+
+    <link rel="stylesheet" href={ import.meta.env.PROD ? `/assets/style-blog.css` : `https://ashgreen1.dev/assets/style-blog.css`}>
+  </body>
+</html>

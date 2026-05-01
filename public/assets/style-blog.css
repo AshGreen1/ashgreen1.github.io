@@ -1,0 +1,171 @@
+/* Blog-specific styles */
+.blog-container {
+  max-width: 1200px;
+  padding: 2rem;
+}
+
+.blog-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.blog-header h1 {
+  color: #fff;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-description {
+  color: #a8a8a8;
+  font-size: 1.1rem;
+}
+
+.blog-posts-list {
+  display: block; /* Cambiado a block para que ocupe el 100% del ancho disponible naturalmente */
+  margin: 0;
+  width: 100%;
+}
+
+.posts-grid {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  /* Usa 1fr si quieres que haya UN SOLO post por fila ocupando el 100% */
+  grid-template-columns: 1fr; 
+  
+  /* O usa esta línea si quieres VARIOS posts por fila que se estiren para llenar el 100% */
+  /* grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); */
+}
+
+.post-card {
+  background: #1c1c1c;
+  border: 1px solid #353535;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.post-meta {
+  margin-bottom: 1rem;
+}
+
+.post-meta time {
+  color: #a8a8a8;
+  font-size: 0.9rem;
+}
+
+.post-title {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-description {
+  color: #a8a8a8;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background: #353535;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.read-more-btn {
+  background: #2b2b2b;
+  color: #fff;
+  border: 1px solid #353535;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.read-more-btn:hover {
+  background: #353535;
+}
+
+.blog-content {
+  background: #1c1c1c;
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.blog-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.button.secondary {
+  background: transparent;
+  border: 1px solid #353535;
+}
+
+.markdown-content {
+  color: #fff;
+  line-height: 1.8;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  color: #fff;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-content p {
+  margin-bottom: 1rem;
+}
+
+.markdown-content code {
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.markdown-content pre {
+  background: #f5f2f0;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.markdown-content pre code {
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .blog-container {
+    padding: 1rem;
+  }
+  
+  .blog-header h1 {
+    font-size: 2rem;
+  }
+  
+  .post-card {
+    padding: 1rem;
+  }
+  
+  .blog-content {
+    padding: 1rem;
+  }
+}

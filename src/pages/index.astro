@@ -1,0 +1,101 @@
+---
+import Header from "@components/Header.astro";
+import Sidebar from "@components/Sidebar.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import SocialCard from "@components/SocialCard.astro";
+import '@styles/styles.css'
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="Renzo Machado" />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem="home" />
+      <nav class="main">
+        <div class="container">
+          <main class="fold-content-container">
+            <div class="fold-content">
+              
+              <div class="hero-container">
+                <img src="https://ashgreen1.dev/assets/me-full.jpg" alt="Profile" class="profile-image" />
+                <h1>Hi, I'm Renzo.<br />I break and fix things for fun and bounties.</h1>
+              </div>
+                            <!-- Contenedor de Redes Sociales -->
+              <div class="social-links-container">
+                <SocialCard 
+                  platform="LinkedIn" 
+                  href="https://www.linkedin.com/in/renzo-neomar-machado-50881a235/?locale=en_US" 
+                  iconSrc="/assets/socials/linkedin.svg" 
+                />
+                <SocialCard 
+                  platform="HackerOne" 
+                  href="https://hackerone.com/ashgreen_1" 
+                  iconSrc="/assets/socials/hackerone.svg" 
+                />
+                <SocialCard 
+                  platform="HackTheBox" 
+                  href="https://app.hackthebox.com/public/users/864704" 
+                  iconSrc="/assets/socials/hackthebox.svg" 
+                />
+              </div>
+
+              <br />
+              <p class="lead">
+                Experienced penetration tester and backend developer. A proactive team member dedicated to continuous learning, problem-solving, and aiding teammates in achieving quicker outcomes.
+              </p>
+            </div>
+          </main>
+          
+          <div class="projects-section">
+            <ProjectCard 
+              href="/penetration-testing"
+              imgSrc="https://ashgreen1.dev/assets/bug.svg"
+              title="Penetration Testing"
+              technologies={[
+                "OWASP", "Burp Suite", "Nmap", "Metasploit", "SQLMap", 
+                "John the Ripper", "Hydra", "Wireshark", "Curl", 
+                "Nessus", "OpenVAS", "Nikto", "Dirb", "Dirbuster"
+              ]}
+            />
+          </div>
+
+          <a href="mailto:renzo.machado@gmail.com" class="button w-button">Contact</a>
+          
+        </div>
+      </nav>
+    </div>
+
+    <style>
+      .hero-container {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .profile-image {
+        width: 260px; /* Ajusta el tamaño de tu foto aquí */
+        height: 260px;
+        object-fit: cover;
+        border-radius: 16px; /* Si la quieres totalmente redonda usa 50% */
+        flex-shrink: 0; /* Evita que la imagen se aplaste si el texto es muy largo */
+      }
+
+      .hero-container h1 {
+        margin: 0; /* Quita el margen por defecto para alinear perfectamente con la imagen */
+      }
+
+      /* Responsive para pantallas pequeñas (móviles) */
+      @media (max-width: 768px) {
+        .hero-container {
+          flex-direction: column;
+          text-align: center;
+          gap: 1rem;
+        }
+      }
+    </style>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+  </body>
+</html>

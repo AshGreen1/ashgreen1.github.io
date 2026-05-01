@@ -1,0 +1,108 @@
+---
+const { title, conference, date, description, videoId, tech = [] } = Astro.props;
+
+// Convertimos el link de YouTube en uno de embebido si es necesario
+const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+---
+
+<div class="speak-card">
+  <div class="video-wrapper">
+    <iframe 
+      src={embedUrl} 
+      title={title} 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen
+    ></iframe>
+  </div>
+  
+  <div class="speak-content">
+    <div class="speak-header">
+      <h3>{title}</h3>
+      <span class="speak-date">{date}</span>
+    </div>
+    <h4 class="speak-conf">{conference}</h4>
+    <p class="speak-desc">{description}</p>
+    
+    <div class="speak-tags">
+      {tech.map(t => <span class="tag">{t}</span>)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .speak-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+  }
+
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* Relación 16:9 */
+    height: 0;
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .speak-content {
+    padding: 1.5rem;
+  }
+
+  .speak-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .speak-header h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.25rem;
+  }
+
+  .speak-date {
+    color: #888;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .speak-conf {
+    color: #007acc; /* Color de acento */
+    margin: 0.5rem 0 1rem 0;
+    font-weight: 500;
+  }
+
+  .speak-desc {
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .speak-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+const { href, iconSrc, platform } = Astro.props;
+---
+
+<a href={href} target="_blank" rel="noopener noreferrer" class="social-square" title={platform}>
+  <img src={iconSrc} alt={platform} class="social-icon" />
+</a>
+
+<style>
+  .social-square {
+    display: inline-flex; /* Cambiado de flex a inline-flex */
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.2s ease-in-out;
+    margin-right: 8px; /* Espaciado entre cuadros si no usas gap en el padre */
+  }
+
+  .social-square:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .social-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    /* Mantiene los iconos legibles en fondo oscuro */
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+
+  .social-square:hover .social-icon {
+    opacity: 1;
+  }
+</style>
+

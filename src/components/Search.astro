@@ -1,0 +1,68 @@
+---
+// src/components/Search.astro
+const { placeholder = "Buscar por título, tags o palabras clave..." } = Astro.props;
+---
+
+<div class="search-wrapper">
+  <input 
+    type="text" 
+    id="searchInput" 
+    placeholder={placeholder}
+    class="search-input"
+  />
+</div>
+
+<script>
+  function setupSearch() {
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    // Seleccionamos todos los artículos dentro del contenedor de recursos
+    const items = document.querySelectorAll('.resouce-items > *');
+
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+
+      items.forEach((item) => {
+        // Obtenemos el texto completo del elemento (título, tags, etc.)
+        const content = item.textContent?.toLowerCase() || "";
+        
+        // Verificamos si el término de búsqueda está incluido en el contenido
+        if (content.includes(searchTerm)) {
+          (item as HTMLElement).style.display = "";
+        } else {
+          (item as HTMLElement).style.display = "none";
+        }
+      });
+    });
+  }
+
+  // Se ejecuta al cargar la página
+  setupSearch();
+
+  // Si usas transiciones de página de Astro (View Transitions)
+  document.addEventListener('astro:page-load', setupSearch);
+</script>
+
+<style>
+  .search-wrapper {
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .search-input:focus {
+    border-color: var(--color-accent, #007acc);
+  }
+</style>

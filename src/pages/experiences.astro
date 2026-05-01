@@ -1,0 +1,86 @@
+---
+import Header from "@components/Header.astro";
+import Project from "@components/Project.astro";
+import Sidebar from "@components/Sidebar.astro";
+import '@styles/styles.css'
+
+const experience = [
+  {
+    title: "Penetration Testing Specialist Senior @ Evertec",
+    date: "2024 - Present",
+    link: "https://evertecinc.com/",
+    desc: [
+      "Execution of penetration tests in corporate environments (web, Active Directory, infrastructure).",
+      "Intrusion testing aligned with OWASP, CIS Benchmarks, and MITRE ATT&CK standards.",
+      "Participation in internal Red Team exercises and intrusion simulations.",
+      "Designed and developed a custom modular scanner from scratch to automate enumeration and attacks."
+    ],
+    imgSrc: "https://evertecinc.com/wp-content/uploads/2025/05/Content.svg",
+    tech: ["Python", "Active Directory", "BurpSuite", "Bash", "CI/CD", "Docker", "Jira"]
+  },
+  {
+    title: "Security Tester @ FluidAttacks",
+    date: "2023 - 2024",
+    link: "https://fluidattacks.com/",
+    desc: [
+      "Identification of vulnerabilities through code analysis and dynamic testing in multiple environments.",
+      "Execution of mobile pentesting on frameworks like React Native, Cordova, and Flutter.",
+      "Experience testing and assessing security on Azure and AWS cloud platforms.",
+      "Generation of detailed vulnerability reports with criticality levels and remediations."
+    ],
+    imgSrc: "https://framerusercontent.com/images/Hm3XiqIsbZAvDR2N3ul8PKlUXi8.png?scale-down-to=250&width=100&height=100",
+    tech: ["React Native", "Flutter", "AWS", "Azure", "Python", "Mobile Security", "Gitlab", "CI/CD"]
+  },
+  {
+    title: "Vulnerability Researcher @ Bugcrowd & HackerOne",
+    date: "2021 - Present",
+    link: "https://hackerone.com/",
+    imgSrc: "https://www.hackerone.com/themes/custom/hackerone/logo.svg",
+    desc: [
+      "Security assessment of web applications and vulnerability discovery in open-source projects.",
+      "Penetration testing across major cloud environments (AWS, Azure, Google Cloud).",
+      "Development of automation tools to speed up the reconnaissance and scanning process."
+    ],
+    tech: ["AWS", "GCP", "Azure", "BurpSuite", "Python", "Bash"]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="Pentesting | Renzo Machado" />
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="pentesting" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="https://ashgreen1.dev/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1>Experiences</h1>
+            <section class="items-container">
+                <div class="resouce-items">
+                    {experience.map(job => (
+                      <Project 
+                        title={job.title} 
+                        desc={job.desc}
+                        tech={job.tech}
+                        date={job.date}
+                        link={job.link}
+                        imgSrc={job.imgSrc}
+                      />
+                    ))}
+                  </div>
+            </section>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+  </body>
+</html>

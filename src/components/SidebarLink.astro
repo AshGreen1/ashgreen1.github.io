@@ -1,0 +1,26 @@
+---
+export interface Props {
+  href: string;
+  itemKey: string;
+  selectedItem: string;
+  iconSrc: string;
+  label: string;
+}
+
+const { href, itemKey, selectedItem, iconSrc, label } = Astro.props;
+const isCurrent = selectedItem === itemKey;
+---
+
+<a
+  href={href}
+  class={`nav-link-container w-inline-block ${isCurrent ? 'w--current' : ''}`}
+  aria-current={isCurrent ? 'page' : undefined}
+>
+  <img
+    src={iconSrc}
+    loading="eager"
+    alt=""
+    class="nav-link-image"
+  />
+  <div>{label}</div>
+</a>

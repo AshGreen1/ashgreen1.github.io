@@ -1,0 +1,57 @@
+---
+import Header from "@components/Header.astro";
+import Project from "@components/Project.astro";
+import Sidebar from "@components/Sidebar.astro";
+import Search from "@components/Search.astro";
+import '@styles/styles.css'
+
+const cves = [
+  {
+    title: "Lapce v0.2.8 - Privilege escalation via Race Condition",
+    link: "https://fluidattacks.com/es/advisories/aerosmith",
+    tech: ["Race Condition", "Privilege Escalation", "Lapce Editor", "CVE-2023-3891"]
+  },  
+  {
+    title: "Teedy v1.11 - Stored cross-site scripting (XSS)",
+    link: "https://fluidattacks.com/es/advisories/freebird",
+    tech: ["XSS", "Stored", "Teedy", "CVE-2023-4892"]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="CVEs | Renzo Machado" />
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="cves" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="https://ashgreen1.dev/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1>CVEs</h1>
+            <Search placeholder="Search by CVE, technology or description..." />
+            <section class="items-container">
+                <div class="resouce-items">
+                    {cves.map(cve => (
+                      <Project 
+                        title={cve.title} 
+                        tech={cve.tech}
+                        link={cve.link}
+                      />
+                    ))}
+                  </div>
+            </section>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+  </body>
+</html>

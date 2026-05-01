@@ -1,0 +1,101 @@
+---
+import Header from '@components/Header.astro';
+import Project from "@components/Project.astro";
+import Sidebar from "@components/Sidebar.astro";
+import Search from "@components/Search.astro";
+import '@styles/styles.css'
+
+const projects = [
+  {
+    title: "HTB Certified Penetration Testing Specialist (HTB CPTS) (HTBCERT-291775E6C6)",
+    imgSrc: "https://images.credly.com/images/e63aa507-b974-4e67-bae6-1e425f6e2a99/image.png",
+    link: "https://hackthebox.com",
+    imagePosition: "side",
+    tech: ["Active Directory", "CVE Exploitation", "Enumeration", "Custom exploits"],
+    background: "#e7e7e7",
+    borderRadius: "100%",
+    margin: "0 1rem 0 1rem"
+  },
+  {
+    title: "Offensive Seccurity Web Expert (OSWE)",
+    link: "https://www.offsec.com/",
+    imgSrc: "https://images.credly.com/images/0a375324-4f9e-412d-b276-b6e96c428709/twitter_thumb_201604_image.png",
+    imagePosition: "side",
+    tech: ["Code Review", "Web Application Security", "Exploitation", "Custom exploits"]
+  },
+  {
+    title: "Burp Suite Certified Practitioner (BSCP) (6D33D0859A4F1260)",
+    link: "https://portswigger.net/web-security",
+    imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-UMCDxrhxYISzDvsQwPiU01TwVEw37MdTRw&s",
+    imagePosition: "side",
+    borderRadius: "100%",
+    tech: ["Web Application Security", "Burp Suite", "Manual Testing", "Automated Testing"]
+  },
+  {
+    title: "Code Review - Pentesterlab (PTLX0239)",
+    link: "https://pentesterlab.com/",
+    imgSrc: "https://assets.pentesterlab.com/logos/pentesterlab_logo_alt_dark-display.svg",
+    imagePosition: "side",
+    borderRadius: "100%",
+    tech: ["Code Review", "Static Analysis", "Dynamic Analysis", "Vulnerability Assessment"]
+  },
+  {
+    title: "Certified AppSec Pentesting eXpert (CAPenX)",
+    link: "https://secops.group/",
+    imgSrc: "https://pentestingexams.com/wp-content/uploads/2024/03/cert-stamp-capenx-expert.webp",
+    imagePosition: "side",
+    borderRadius: "100%",
+    tech: ["Web Application Security", "Burp Suite", "Manual Testing", "Automated Testing"]
+  },
+  {
+    title: "eLearn Mobile Application Penetration Testing (eMAPT)",
+    link: "https://www.elearnsecurity.com/",
+    imgSrc: "https://us-east-1.graphassets.com/AwCYQkwjSUCbfkm08Ct1Mz/cmcc4862vfy6r07k5un8lsi68",
+    imagePosition: "side",
+    borderRadius: "100%",
+    tech: ["Mobile Application Security", "Android", "iOS", "Reverse Engineering"]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="Certifications | Renzo Machado" />
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="certifications" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block">
+              <img src="https://ashgreen1.dev/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div>
+            </a>
+          </div>
+          <div class="content-container">
+            <h1>Certifications</h1>
+            <Search placeholder="Search by certification, technology or description..." />
+            <section class="items-container">
+                <div class="resouce-items">
+                    {projects.map(project => (
+                      <Project 
+                        title={project.title} 
+                        link={project.link}
+                        tech={project.tech}
+                        imgSrc={project.imgSrc}
+                        imagePosition={project.imagePosition}
+                        background={project.background}
+                        borderRadius={project.borderRadius}
+                        margin={project.margin}
+                      />
+                    ))}
+                  </div>
+            </section>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+  </body>
+</html>

@@ -1,0 +1,57 @@
+---
+import Header from "@components/Header.astro";
+import Sidebar from "@components/Sidebar.astro";
+import Speak from "@components/Speak.astro"; // Importamos el nuevo componente
+import '@styles/styles.css'
+
+const talks = [
+  {
+    title: "Cómo obtener la certificación CPTS con éxito",
+    conference: "Meetup LATAM",
+    date: "Sept 2024",
+    description: "En este meetup compartí mi experiencia y consejos para obtener la certificación CPTS (Certified Penetration Testing Specialist) con éxito.",
+    videoId: "4MxnKWqwxAo",
+    tech: ["Certification", "Penetration Testing", "Security"]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="Talks | Renzo Machado" />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem="talks" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block">
+              <img src="https://ashgreen1.dev/assets/back.svg" loading="lazy" alt="Back" class="back-nav-img" />
+              <div>Back</div>
+            </a>
+          </div>
+          
+          <div class="content-container">
+            <h1>Speaking & Conferences</h1>
+            <p class="lead">Compartiendo conocimiento sobre seguridad ofensiva y desarrollo seguro en diferentes comunidades.</p>
+            
+            <section class="items-container">
+              <div class="resource-items">
+                {talks.map(talk => (
+                  <Speak 
+                    title={talk.title}
+                    conference={talk.conference}
+                    date={talk.date}
+                    description={talk.description}
+                    videoId={talk.videoId}
+                    tech={talk.tech}
+                  />
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>

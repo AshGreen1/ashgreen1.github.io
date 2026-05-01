@@ -1,0 +1,119 @@
+---
+import SidebarLink from "./SidebarLink.astro";
+
+const { selectedItem } = Astro.props;
+---
+
+<aside
+  data-animation="default"
+  data-collapse="medium"
+  data-duration="400"
+  data-easing="ease"
+  data-easing2="ease"
+  role="banner"
+  class="sidebar w-nav"
+>
+  <div class="nav-content">
+    <a href="/" class="w-nav-brand" aria-label="home">
+      <div class="niv-data">
+        <img
+          src="https://ashgreen1.dev/assets/me.jpg"
+          loading="eager"
+          alt="Profile picture"
+          class="niv-image"
+        />
+        <div>
+          <div class="label-white">Renzo Machado</div>
+          <div class="label-gray">Penetration Tester Senior</div>
+        </div>
+      </div>
+    </a>
+
+    <nav role="navigation" class="w-nav-menu">
+      <SidebarLink 
+        href="/" 
+        itemKey="home" 
+        selectedItem={selectedItem} 
+        iconSrc="https://ashgreen1.dev/assets/home.svg" 
+        label="Home" 
+      />
+      
+      <SidebarLink 
+        href="/experiences" 
+        itemKey="experiences" 
+        selectedItem={selectedItem} 
+        iconSrc="https://ashgreen1.dev/assets/code.svg" 
+        label="Experiences" 
+      />
+      
+      <SidebarLink 
+        href="/certifications" 
+        itemKey="certifications" 
+        selectedItem={selectedItem} 
+        iconSrc="https://ashgreen1.dev/assets/certifications.svg" 
+        label="Certifications" 
+      />
+      
+      <SidebarLink 
+        href="/personal-projects" 
+        itemKey="personal-projects" 
+        selectedItem={selectedItem} 
+        iconSrc="https://ashgreen1.dev/assets/favorite.svg" 
+        label="Personal projects" 
+      />
+
+      <SidebarLink 
+        href="/cves" 
+        itemKey="cves" 
+        selectedItem={selectedItem} 
+        iconSrc={import.meta.env.DEV ? "./assets/desktop-check.svg" : "https://ashgreen1.dev/assets/desktop-check.svg"}
+        label="CVEs" 
+      />
+
+      <SidebarLink 
+        href="/speaks" 
+        itemKey="speaks" 
+        selectedItem={selectedItem} 
+        iconSrc={import.meta.env.DEV ? "./assets/sidebar/speaks.svg" : "https://ashgreen1.dev/assets/sidebar/speaks.svg"}
+        label="Speaks" 
+      />
+
+      <SidebarLink 
+        href="/blog" 
+        itemKey="blog" 
+        selectedItem={selectedItem} 
+        iconSrc="https://ashgreen1.dev/assets/feather.svg" 
+        label="Blog" 
+      />
+    </nav>
+
+    <div
+      class="navbar-icon-button w-nav-button"
+      style="-webkit-user-select: text;"
+      aria-label="menu"
+      role="button"
+      tabindex="0"
+    >
+      <img
+        src="https://ashgreen1.dev/assets/menu.svg"
+        loading="eager"
+        alt=""
+        class="navbar-icon"
+      />
+    </div>
+  </div>
+
+  <script>
+    import { setupNav } from '@scripts/nav.js';
+    
+    let cleanup;
+    document.addEventListener('astro:page-load', () => {
+      if (cleanup) cleanup();
+      cleanup = setupNav();
+    });
+
+    document.addEventListener('astro:before-swap', () => {
+      if (cleanup) cleanup();
+    });
+  </script>
+</aside>

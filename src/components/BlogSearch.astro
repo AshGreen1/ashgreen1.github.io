@@ -1,0 +1,76 @@
+---
+// src/components/BlogSearch.astro
+const { placeholder = "Buscar en el blog..." } = Astro.props;
+---
+
+<div class="search-wrapper" id="blogSearchWrapper">
+  <input 
+    type="text" 
+    id="blogSearchInput" 
+    placeholder={placeholder}
+    class="search-input"
+    autocomplete="off"
+  />
+</div>
+
+<script>
+  function setupBlogSearch() {
+    const searchInput = document.getElementById('blogSearchInput') as HTMLInputElement;
+    const searchWrapper = document.getElementById('blogSearchWrapper');
+    const blogPostsList = document.getElementById('blogPostsList');
+    
+    // Apuntamos a los elementos dentro del grid del blog
+    const posts = document.querySelectorAll('.posts-grid > *');
+
+    if (!searchInput || !posts.length) return;
+
+    // Lógica de filtrado
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+
+      posts.forEach((post) => {
+        const content = post.textContent?.toLowerCase() || "";
+        (post as HTMLElement).style.display = content.includes(searchTerm) ? "" : "none";
+      });
+    });
+
+    // Lógica para ocultar el buscador cuando el PostViewer está activo
+    if (blogPostsList && searchWrapper) {
+      const observer = new MutationObserver(() => {
+        // Si la lista de posts está oculta (display: none), ocultamos el buscador
+        const isListHidden = window.getComputedStyle(blogPostsList).display === 'none';
+        searchWrapper.style.display = isListHidden ? 'none' : 'block';
+      });
+
+      observer.observe(blogPostsList, { attributes: true, attributeFilter: ['style'] });
+    }
+  }
+
+  // Ejecutar en carga inicial y en transiciones
+  setupBlogSearch();
+  document.addEventListener('astro:page-load', setupBlogSearch);
+</script>
+
+<style>
+  .search-wrapper {
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .search-input:focus {
+    border-color: #007acc; /* Ajusta a tu color principal */
+    background: rgba(255, 255, 255, 0.08);
+  }
+</style>
