@@ -1,0 +1,161 @@
+---
+const { 
+  title, 
+  tech, 
+  link, 
+  certLink, 
+  imgSrc, 
+  background = 'transparent', 
+  borderRadius = '0' 
+} = Astro.props;
+---
+
+<div class="single-item">
+  <div class="item-main-section layout-side">
+    {imgSrc && (
+      <div class="item-image-container">
+        <img 
+          src={imgSrc} 
+          alt={title} 
+          loading="lazy" 
+          class="item-image" 
+          style={`background-color: ${background}; border-radius: ${borderRadius};`} 
+        />
+      </div>
+    )}
+    
+    <div class="item-header">
+      <h3 class="item-title">{title}</h3>
+      
+      <div class="links-wrapper">
+        {link && (
+          <a href={link} target="_blank" rel="noopener noreferrer" class="item-link">
+            {link}
+          </a>
+        )}
+        
+        {certLink && (
+          <a href={certLink} target="_blank" rel="noopener noreferrer" class="cert-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            See Certificate
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+
+  {tech && tech.length > 0 && (
+    <>
+      <div class="mini-label-white" style="margin-top: 1.5rem;">Skills & Domains</div>
+      <div class="chips-container">
+        {tech.map((techItem: any) => <div class="single-chip">{techItem}</div>)}
+      </div>
+    </>
+  )}
+</div>
+
+<style>
+  .single-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .single-item:last-child {
+    border-bottom: none;
+  }
+
+  .layout-side {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .item-image-container {
+    flex-shrink: 0;
+    width: 80px; 
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .item-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .item-header {
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .item-title {
+    margin: 0 0 0.5rem 0; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+    font-size: 1.25rem;
+    color: #fff;
+  }
+
+  .links-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+    margin-top: 0.5rem;
+  }
+  
+  .item-link {
+    color: #a8a8a8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+    word-break: break-all;
+  }
+
+  .item-link:hover {
+    color: #007acc;
+  }
+
+  /* Botón para ver el certificado */
+  .cert-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    background-color: #2b2b2b;
+    border: 1px solid #353535;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .cert-btn:hover {
+    background-color: #353535;
+    border-color: #007acc;
+    color: #007acc;
+  }
+
+  @media (max-width: 480px) {
+    .layout-side {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+</style>

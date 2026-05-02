@@ -1,0 +1,45 @@
+---
+const { experiences } = Astro.props;
+---
+
+<div class="isolated-timeline">
+  <div class="timeline-vertical-line"></div>
+
+  {experiences.map((exp, index) => {
+    const isLeft = index % 2 === 0;
+    return (
+      <div class="timeline-grid-row">
+        
+        {/* COLUMNA IZQUIERDA */}
+        <div class="timeline-col col-left" onclick={`window.open('${exp.link}', '_blank')`} style="cursor: pointer;">
+          {isLeft && (
+            <div class="timeline-content-box">
+              <div class="horizontal-connector connector-right"></div>
+              <img src={exp.imgSrc} alt="Logo" class="box-logo" />
+              <span class="box-role">{exp.role}</span>
+            </div>
+          )}
+        </div>
+
+        {/* COLUMNA CENTRAL (FECHA) */}
+        <div class="timeline-col col-center">
+          <div class="date-badge-wrapper">
+            <span class="date-badge">{exp.date}</span>
+          </div>
+        </div>
+
+        {/* COLUMNA DERECHA */}
+        <div class="timeline-col col-right" onclick={`window.open('${exp.link}', '_blank')`} style="cursor: pointer;">
+          {!isLeft && (
+            <div class="timeline-content-box">
+              <div class="horizontal-connector connector-left"></div>
+              <img src={exp.imgSrc} alt="Logo" class="box-logo" />
+              <span class="box-role">{exp.role}</span>
+            </div>
+          )}
+        </div>
+
+      </div>
+    );
+  })}
+</div>

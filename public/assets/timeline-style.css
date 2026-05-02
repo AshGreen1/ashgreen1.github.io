@@ -1,0 +1,257 @@
+/* Aislamiento total del contenedor */
+  .isolated-timeline {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: 4rem auto !important;
+    display: block !important; /* Rompe la herencia flex del padre */
+    box-sizing: border-box !important;
+  }
+
+/* 1. El contenedor base */
+.timeline-vertical-line {
+  position: absolute !important;
+  top: -30px !important;
+  bottom: -30px !important; 
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 20px !important; 
+  background: transparent !important; 
+  z-index: 1 !important;
+}
+
+/* 2. La línea punteada (Difuminada solo arriba) */
+.timeline-vertical-line::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 2px !important;
+  background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 8px, transparent 8px, transparent 16px) !important;
+  
+  /* MÁSCARA: Transparente al inicio (0%), sólido a los 150px, y se mantiene sólido hasta el final (100%) */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 150px, black 100%) !important;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 150px, black 100%) !important;
+}
+
+/* 3. El círculo azul brillante (Ahora al final) */
+.timeline-vertical-line::before {
+  content: '' !important;
+  position: absolute !important;
+  top: auto !important; /* Quitamos el top */
+  bottom: 0 !important; /* Lo anclamos al fondo */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 14px !important;
+  height: 14px !important;
+  background: #007acc !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 15px rgba(0, 122, 204, 0.8), 0 0 30px rgba(0, 122, 204, 0.4) !important;
+  z-index: 2 !important;
+}
+
+  /* GRID: Forzamos la estructura 1fr - 0px - 1fr para evitar que el centro ocupe espacio y rompa el 50% */
+  .timeline-grid-row {
+    display: grid !important;
+    grid-template-columns: 1fr 0px 1fr !important;
+    gap: 0 !important;
+    align-items: center !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 2 !important;
+    margin-bottom: 60px !important;
+  }
+
+  .timeline-col {
+    display: flex !important;
+    position: relative !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ajustes exactos de alineación */
+  .col-left {
+    justify-content: flex-end !important;
+    padding-right: 8rem !important; /* Espacio para el conector */
+  }
+
+  .col-right {
+    justify-content: flex-start !important;
+    padding-left: 8rem !important; /* Espacio para el conector */
+  }
+
+  .col-center {
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: visible !important; /* Permite que el badge salga del tamaño 0px */
+    z-index: 5 !important;
+  }
+
+  /* El Wrapper de la fecha es clave para centrarlo perfecto en una columna de 0px */
+  .date-badge-wrapper {
+    position: absolute !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .date-badge {
+    background: #1a1a1a !important; /* Tu color de fondo */
+    border: 2px solid #007acc !important;
+    color: #fff !important;
+    padding: 8px 20px !important;
+    border-radius: 30px !important;
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+    box-shadow: 0 0 15px rgba(0, 122, 204, 0.3) !important;
+    margin: 0 !important;
+  }
+
+  /* LA TARJETA aislando tu global css */
+  .timeline-content-box {
+    background: rgba(36, 36, 36, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 24px !important;
+    border-radius: 16px !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    position: relative !important;
+    transition: transform 0.3s ease, border-color 0.3s ease !important;
+  }
+
+  .timeline-content-box:hover {
+    border-color: #007acc !important;
+    transform: translateY(-5px) !important;
+  }
+
+  .box-logo {
+    height: 40px !important;
+    max-width: 160px !important;
+    object-fit: contain !important;
+    margin-bottom: 16px !important;
+    border: none !important; /* Resetea posibles bordes globales */
+    display: block !important;
+  }
+
+  /* Aislando el texto y los enlaces */
+  .box-link {
+    color: #fff !important;
+    background-color: transparent !important;
+    text-decoration: none !important;
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    margin-bottom: 6px !important;
+    display: block !important;
+    line-height: 1.2 !important;
+    transition: color 0.2s ease !important;
+  }
+
+  .box-link:hover {
+    color: #007acc !important;
+    outline: 0 !important;
+  }
+
+  .box-role {
+    color: #a8a8a8 !important; /* Mismo gris de tus párrafos globales */
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    display: block !important;
+  }
+
+  /* CONECTORES */
+  .horizontal-connector {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 8rem !important; /* Debe coincidir con el padding de la columna */
+    height: 2px !important;
+    background: repeating-linear-gradient(to right, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 6px, transparent 6px, transparent 12px) !important;
+  }
+
+  .connector-right { right: -8rem !important; }
+  .connector-left { left: -8rem !important; }
+
+.profile-image {
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 16px;
+    flex-shrink: 0;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* RESPONSIVE MÓVIL */
+@media screen and (max-width: 767px) {
+    .isolated-timeline {
+        padding-left: 15px !important; /* Damos margen para que las fechas largas no toquen el borde de la pantalla */
+        padding-right: 15px !important;
+    }
+
+    .timeline-vertical-line {
+        left: 50px !important; /* Mitad exacta de la primera columna (100px) */
+        transform: translateX(-50%) !important;
+    }
+
+    .timeline-grid-row {
+        /* Columna fija de 100px para la fecha, el resto para la tarjeta */
+        grid-template-columns: 100px 1fr !important; 
+        gap: 15px !important;
+        align-items: center !important; 
+    }
+
+    .col-center {
+        grid-column: 1 !important;
+        grid-row: 1 !important; /* Fuerza a estar en la primera fila */
+        width: 100px !important; /* Ancho bloqueado para que la línea nunca se desajuste */
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    .col-left, .col-right {
+        grid-column: 2 !important;
+        grid-row: 1 !important; /* EL FIX CLAVE: Fuerza a la tarjeta a compartir fila con la fecha */
+        justify-content: flex-start !important;
+        padding: 0 !important;
+    }
+
+    /* Ocultamos por completo las columnas vacías para que no rompan el grid */
+    .col-left:empty, .col-right:empty {
+        display: none !important;
+    }
+
+    .horizontal-connector { display: none !important; }
+
+    .date-badge-wrapper {
+        position: relative !important;
+        left: 0 !important;
+        width: max-content !important; /* Permite que textos largos sobresalgan sin deformar la columna central */
+        z-index: 5 !important;
+    }
+
+    .date-badge {
+        padding: 6px 10px !important;
+        font-size: 11px !important; /* Letra un poco más ajustada para el móvil */
+        border-radius: 8px !important;
+    }
+
+    .timeline-content-box {
+        max-width: 100% !important;
+        padding: 16px !important;
+    }
+}

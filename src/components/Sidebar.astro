@@ -34,7 +34,7 @@ const { selectedItem } = Astro.props;
         href="/" 
         itemKey="home" 
         selectedItem={selectedItem} 
-        iconSrc="https://ashgreen1.dev/assets/home.svg" 
+        iconSrc={import.meta.env.DEV ? "./assets/sidebar/home.svg" : "https://ashgreen1.dev/assets/sidebar/home.svg"}
         label="Home" 
       />
       
@@ -42,7 +42,7 @@ const { selectedItem } = Astro.props;
         href="/experiences" 
         itemKey="experiences" 
         selectedItem={selectedItem} 
-        iconSrc="https://ashgreen1.dev/assets/code.svg" 
+        iconSrc={import.meta.env.DEV ? "./assets/sidebar/code.svg" : "https://ashgreen1.dev/assets/sidebar/code.svg"}
         label="Experiences" 
       />
       
@@ -50,7 +50,7 @@ const { selectedItem } = Astro.props;
         href="/certifications" 
         itemKey="certifications" 
         selectedItem={selectedItem} 
-        iconSrc="https://ashgreen1.dev/assets/certifications.svg" 
+        iconSrc={import.meta.env.DEV ? "./assets/sidebar/certifications.svg" : "https://ashgreen1.dev/assets/sidebar/certifications.svg"}
         label="Certifications" 
       />
       
@@ -58,7 +58,7 @@ const { selectedItem } = Astro.props;
         href="/personal-projects" 
         itemKey="personal-projects" 
         selectedItem={selectedItem} 
-        iconSrc="https://ashgreen1.dev/assets/favorite.svg" 
+        iconSrc={import.meta.env.DEV ? "./assets/sidebar/favorite.svg" : "https://ashgreen1.dev/assets/sidebar/favorite.svg"}
         label="Personal projects" 
       />
 
@@ -66,7 +66,7 @@ const { selectedItem } = Astro.props;
         href="/cves" 
         itemKey="cves" 
         selectedItem={selectedItem} 
-        iconSrc={import.meta.env.DEV ? "./assets/desktop-check.svg" : "https://ashgreen1.dev/assets/desktop-check.svg"}
+        iconSrc={import.meta.env.DEV ? "./assets/sidebar/desktop-check.svg" : "https://ashgreen1.dev/assets/sidebar/desktop-check.svg"}
         label="CVEs" 
       />
 
@@ -82,7 +82,7 @@ const { selectedItem } = Astro.props;
         href="/blog" 
         itemKey="blog" 
         selectedItem={selectedItem} 
-        iconSrc="https://ashgreen1.dev/assets/feather.svg" 
+        iconSrc={import.meta.env.DEV ? "./assets/sidebar/feather.svg" : "https://ashgreen1.dev/assets/sidebar/feather.svg"}
         label="Blog" 
       />
     </nav>

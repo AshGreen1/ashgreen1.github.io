@@ -3,11 +3,37 @@ import Header from "@components/Header.astro";
 import Sidebar from "@components/Sidebar.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import SocialCard from "@components/SocialCard.astro";
+import ExperienceTimeline from "@components/ExperienceTimeline.astro";
 import '@styles/styles.css'
+
+const history = [
+  {
+    date: "2024 - Current",
+    title: "Evertec",
+    role: "Penetration Testing Sr Specialist",
+    imgSrc: "https://evertecinc.com/wp-content/uploads/2025/05/Content.svg",
+    link: "https://evertecinc.com/"
+  },
+  {
+    date: "2023 - 2024",
+    title: "FluidAttacks",
+    role: "Security Tester",
+    imgSrc: "https://framerusercontent.com/images/Hm3XiqIsbZAvDR2N3ul8PKlUXi8.png?scale-down-to=250&width=100&height=100",
+    link: "https://fluidattacks.com/"
+  },
+  {
+    date: "2021 - Current",
+    title: "HackerOne & Bugcrowd",
+    role: "Vulnerability Researcher",
+    imgSrc: "https://www.hackerone.com/themes/custom/hackerone/logo.svg",
+    link: "https://hackerone.com/"
+  }
+];
 ---
 
 <!DOCTYPE html>
 <html>
+  <link rel="stylesheet" href="/assets/timeline-style.css">
   <Header title="Renzo Machado" />
   <body>
     <div class="content">
@@ -19,9 +45,12 @@ import '@styles/styles.css'
               
               <div class="hero-container">
                 <img src="https://ashgreen1.dev/assets/me-full.jpg" alt="Profile" class="profile-image" />
-                <h1>Hi, I'm Renzo.<br />I break and fix things for fun and bounties.</h1>
+                <div class="hero-text">
+                  <h1>Hi, I'm Renzo Machado.</h1>
+                  <h2 style="margin-top: 0.5rem; color:#f3f3f3; font-size: 2.2rem;">I break and fix things for fun and bounties.</h2>
+                </div>
               </div>
-                            <!-- Contenedor de Redes Sociales -->
+              <!-- Contenedor de Redes Sociales -->
               <div class="social-links-container">
                 <SocialCard 
                   platform="LinkedIn" 
@@ -46,11 +75,18 @@ import '@styles/styles.css'
               </p>
             </div>
           </main>
+
+          <section class="experience-history">
+            <h3 style="text-align: center; margin-bottom: 3rem; color:#f3f3f3">Experience Timeline</h3>
+            <ExperienceTimeline experiences={history} />
+          </section>
+
+          <h3 style="text-align: center; margin-bottom: 3rem; color:#f3f3f3">Skills</h3>
           
           <div class="projects-section">
             <ProjectCard 
-              href="/penetration-testing"
-              imgSrc="https://ashgreen1.dev/assets/bug.svg"
+              href="/experiences"
+              imgSrc="https://ashgreen1.dev/assets/sidebar/bug.svg"
               title="Penetration Testing"
               technologies={[
                 "OWASP", "Burp Suite", "Nmap", "Metasploit", "SQLMap", 
@@ -65,37 +101,6 @@ import '@styles/styles.css'
         </div>
       </nav>
     </div>
-
-    <style>
-      .hero-container {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .profile-image {
-        width: 260px; /* Ajusta el tamaño de tu foto aquí */
-        height: 260px;
-        object-fit: cover;
-        border-radius: 16px; /* Si la quieres totalmente redonda usa 50% */
-        flex-shrink: 0; /* Evita que la imagen se aplaste si el texto es muy largo */
-      }
-
-      .hero-container h1 {
-        margin: 0; /* Quita el margen por defecto para alinear perfectamente con la imagen */
-      }
-
-      /* Responsive para pantallas pequeñas (móviles) */
-      @media (max-width: 768px) {
-        .hero-container {
-          flex-direction: column;
-          text-align: center;
-          gap: 1rem;
-        }
-      }
-    </style>
-
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
   </body>
 </html>

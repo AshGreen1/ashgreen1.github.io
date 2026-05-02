@@ -19,6 +19,12 @@ const blogPosts = await Astro.glob('@blog/*.md');
       <Sidebar selectedItem="blog" />
       <nav class="main">
         <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="https://ashgreen1.dev/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
           <main class="blog-container">
 
             <BlogHeader />
