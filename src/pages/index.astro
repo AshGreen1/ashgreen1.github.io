@@ -4,6 +4,8 @@ import Sidebar from "@components/Sidebar.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import SocialCard from "@components/SocialCard.astro";
 import ExperienceTimeline from "@components/ExperienceTimeline.astro";
+import CertBadge from "@components/CertBadge.astro";
+
 import '@styles/styles.css'
 
 const history = [
@@ -27,6 +29,41 @@ const history = [
     role: "Vulnerability Researcher",
     imgSrc: "https://www.hackerone.com/themes/custom/hackerone/logo.svg",
     link: "https://hackerone.com/"
+  }
+];
+
+const certs = [
+  {
+    title: "CPTS",
+    certLink: "https://ashgreen1.dev/assets/certifications/htb_cpts_renzo_neomar_machado_santana.pdf",
+    imgSrc: "https://images.credly.com/images/e63aa507-b974-4e67-bae6-1e425f6e2a99/image.png",
+    background:"#e7e7e7"
+  },
+  {
+    title: "OSWE",
+    certLink: "https://www.credential.net/b60a46d0-b3dc-4132-968a-646b20a835f9#acc.3P8EjQx0",
+    imgSrc: "https://images.credly.com/images/0a375324-4f9e-412d-b276-b6e96c428709/twitter_thumb_201604_image.png",
+  },
+  {
+    title: "BSCP",
+    certLink: "https://portswigger.net/web-security/e/c/6d33d0859a4f1260",
+    imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-UMCDxrhxYISzDvsQwPiU01TwVEw37MdTRw&s",
+    background:"#e7e7e7"
+  },
+  {
+    title: "Code Review - PentesterLab",
+    certLink: "https://pentesterlab.com/certs/94a7e04645d9f87cf7821dcdcc52af",
+    imgSrc: "https://assets.pentesterlab.com/logos/pentesterlab_logo_alt_dark-display.svg",
+  },
+  {
+    title: "CAPenX",
+    certLink: "https://ashgreen1.dev/assets/certifications/capenx.pdf",
+    imgSrc: "https://pentestingexams.com/wp-content/uploads/2024/03/cert-stamp-capenx-expert.webp",
+  },
+  {
+    title: "eMAPT",
+    certLink: "https://certs.ine.com/e0687957-ff67-459d-ab3d-aba07181d968#acc.CQnbFpP4",
+    imgSrc: "https://us-east-1.graphassets.com/AwCYQkwjSUCbfkm08Ct1Mz/cmcc4862vfy6r07k5un8lsi68",
   }
 ];
 ---
@@ -81,6 +118,21 @@ const history = [
             <ExperienceTimeline experiences={history} />
           </section>
 
+          <!-- En alguna parte de tu Home -->
+          <section class="home-certifications">
+            <h3 style="text-align: center; margin-bottom: 3rem; color:#f3f3f3">Certifications</h3>
+            
+            <div class="badges-container">
+              {certs.map(cert => (
+                <CertBadge 
+                  certLink={cert.certLink}
+                  imgSrc={cert.imgSrc}
+                  background={cert.background}
+                />
+              ))}
+            </div>
+          </section>
+
           <h3 style="text-align: center; margin-bottom: 3rem; color:#f3f3f3">Skills</h3>
           
           <div class="projects-section">
@@ -103,4 +155,14 @@ const history = [
     </div>
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
   </body>
+
+  <style>
+    /* Contenedor Flex para que las píldoras fluyan naturalmente */
+    .badges-container {
+      display: flex;
+      flex-wrap: wrap; /* Permite que salten a la siguiente línea si no caben */
+      gap: 12px;
+      align-items: center;
+    }
+  </style>
 </html>

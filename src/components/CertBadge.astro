@@ -1,0 +1,60 @@
+---
+const { title, imgSrc, certLink, background = 'transparent', borderRadius = '100%' } = Astro.props;
+---
+
+<a href={certLink} target="_blank" rel="noopener noreferrer" class="cert-badge" title={title}>
+  {imgSrc && (
+    <div class="cert-icon" style={`background-color: ${background}; border-radius: ${borderRadius};`}>
+      <img src={imgSrc} alt={`${title} logo`} loading="lazy"/>
+    </div>
+  )}
+</a>
+
+<style>
+  .cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 0.1rem solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%; /* Forma de píldora */
+    padding: 1rem; /* Menos padding a la izquierda para abrazar el logo */
+    text-decoration: none;
+    color: #a8a8a8;
+    transition: all 0.2s ease;
+    max-width: 100%; /* Evita que rompa el contenedor en móviles */
+  }
+
+  .cert-badge:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: #007acc; /* Tu azul de acento */
+    color: #fff;
+    transform: translateY(-0.2rem);
+    box-shadow: 0 0.4rem 1.2rem rgba(0, 122, 204, 0.15);
+  }
+
+  .cert-icon {
+    width: 8rem;
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .cert-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .cert-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: 'IBM Plex Sans', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>

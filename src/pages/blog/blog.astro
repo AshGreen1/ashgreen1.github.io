@@ -109,6 +109,6 @@ const blogPosts = await Astro.glob('@blog/*.md');
       });
     </script>
 
-    <link rel="stylesheet" href={ import.meta.env.PROD ? `/assets/style-blog.css` : `https://ashgreen1.dev/assets/style-blog.css`}>
+    <link rel="stylesheet" href={ import.meta.env.DEV ? `/assets/style-blog.css` : `https://ashgreen1.dev/assets/style-blog.css`}>
   </body>
 </html>

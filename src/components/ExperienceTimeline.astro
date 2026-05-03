@@ -13,11 +13,13 @@ const { experiences } = Astro.props;
         {/* COLUMNA IZQUIERDA */}
         <div class="timeline-col col-left" onclick={`window.open('${exp.link}', '_blank')`} style="cursor: pointer;">
           {isLeft && (
-            <div class="timeline-content-box">
-              <div class="horizontal-connector connector-right"></div>
-              <img src={exp.imgSrc} alt="Logo" class="box-logo" />
-              <span class="box-role">{exp.role}</span>
-            </div>
+            <>              
+              <div class="timeline-content-box">
+                <div class="horizontal-connector connector-right"></div>
+                <img src={exp.imgSrc} alt="Logo" class="box-logo" />
+                <span class="box-role">{exp.role}</span>
+              </div>
+            </>
           )}
         </div>
 
@@ -31,11 +33,13 @@ const { experiences } = Astro.props;
         {/* COLUMNA DERECHA */}
         <div class="timeline-col col-right" onclick={`window.open('${exp.link}', '_blank')`} style="cursor: pointer;">
           {!isLeft && (
-            <div class="timeline-content-box">
-              <div class="horizontal-connector connector-left"></div>
-              <img src={exp.imgSrc} alt="Logo" class="box-logo" />
-              <span class="box-role">{exp.role}</span>
-            </div>
+            <>              
+              <div class="timeline-content-box">
+                <div class="horizontal-connector connector-left"></div>
+                <img src={exp.imgSrc} alt="Logo" class="box-logo" />
+                <span class="box-role">{exp.role}</span>
+              </div>
+            </>
           )}
         </div>
 

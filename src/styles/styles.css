@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
 
+p, span {
+  font-size: 1.1rem;
+}
+
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -269,7 +273,6 @@ h4 {
 p {
   color: #a8a8a8;
   margin-bottom: 10px;
-  font-size: 16px;
   line-height: 26px;
 }
 
@@ -713,3 +716,17 @@ img.item-image {
     margin: 1rem 0 1rem 0;
 }
 
+@media screen and (max-width: 767px) {
+  .hero-container {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .profile-image {
+    width: 360px;
+  }
+
+  h2 {
+    line-height: 2.1rem;
+  }
+}
